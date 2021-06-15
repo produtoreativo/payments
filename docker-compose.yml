@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  db:
+    image: "postgres:13"
+    restart: 'always'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: "starkbank"
+      POSTGRES_DB: "starkbank"
+  redis:
+    network_mode: host
+    container_name: redis-starkbank
+    image: redis
+    command: redis-server
+    ports:
+      - "6379:6379"
+
+  

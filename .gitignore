@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+.vscode/
+
+.env
 private-key.pem
 public-key.pem
 
