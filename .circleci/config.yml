@@ -21,7 +21,7 @@ jobs:
             - ~/.npm
       - run:
           name: Run Tests
-          command: npm run test
+          command: npm run test:cov
       - sonarcloud/scan
 
 workflows:
