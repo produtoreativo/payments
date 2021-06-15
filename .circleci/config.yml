@@ -21,17 +21,15 @@ jobs:
             - ~/.npm
       - run:
           name: Run tests with JUnit as reporter
-          command: yarn jest -- --ci --testResultsProcessor="jest-junit"
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
-      - run:
-          name: "JavaScript Linter"
+          command: yarn jest -- --ci"
+      #- run:
+          #name: "JavaScript Linter"
           # yarn here makes sure we are using the local jest binary
-          command: yarn lint -- --format junit -o reports/junit/js-lint-results.xml
+          #command: yarn lint -- --format junit -o reports/junit/js-lint-results.xml
       - store_test_results:
-          path: reports/junit
+          path: coverage
       - store_artifacts:
-          path: reports/junit
+          path: coverage
       - sonarcloud/scan
 
 workflows:
