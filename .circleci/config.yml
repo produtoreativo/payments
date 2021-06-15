@@ -21,7 +21,7 @@ jobs:
           paths:
             - ~/.npm
       - run:
-          name: Run tests with JUnit as reporter
+          name: Run tests with Jest
           command: npm run test:cov
       #- run:
           #name: "JavaScript Linter"
