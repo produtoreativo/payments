@@ -32,6 +32,9 @@ jobs:
       - store_artifacts:
           path: coverage
       - sonarcloud/scan
+      - codecov/upload:
+          conf: codecov.yml
+          file: coverage/coverage-final.json
 
 workflows:
   orb-free-workflow:
