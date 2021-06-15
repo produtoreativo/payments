@@ -21,7 +21,7 @@ jobs:
             - ~/.npm
       - run:
           name: Run tests with JUnit as reporter
-          command: yarn jest -- --ci
+          command: yarn test:cov
       #- run:
           #name: "JavaScript Linter"
           # yarn here makes sure we are using the local jest binary
