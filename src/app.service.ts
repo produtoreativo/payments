@@ -8,7 +8,6 @@ import { Invoice } from './domain/entities/Invoice';
 
 @Injectable()
 export class AppService {
-
   constructor(
     @InjectRepository(Invoice)
     private invoiceRepository: Repository<Invoice>,
@@ -23,17 +22,16 @@ export class AppService {
     const file = fs.readFileSync(path.resolve(filePath));
     const privateKey = file.toString();
     starkbank.user = new starkbank.Project({
-        environment: 'sandbox',
-        id: process.env.STARKBANK_ID,
-        privateKey,
+      environment: 'sandbox',
+      id: process.env.STARKBANK_ID,
+      privateKey,
     });
     const invoice = new Invoice();
-    invoice.merge(payload)
+    invoice.merge(payload);
     await this.invoiceRepository.save(invoice);
     const dto = invoice.createDTO();
     const providerPayload = await starkbank.invoice.create([dto]);
     invoice.setProvider(providerPayload);
     return await this.invoiceRepository.save(invoice);
   }
-
 }
