@@ -33,7 +33,7 @@ export class AppService {
     const dto = invoice.createDTO();
     const providerPayload = await starkbank.invoice.create([dto]);
     invoice.setProvider(providerPayload);
-    return await this.invoiceRepository.save(invoice);
+    return this.invoiceRepository.save(invoice);
   }
 
 }
