@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  sonarcloud: extendaretail/sonarcloud@0.0.2
+  sonarcloud: sonarsource/sonarcloud@1.0.2
 jobs:
   test:
     docker:
@@ -27,4 +27,5 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      - test
+      - test:
+          context: sonarcloud
