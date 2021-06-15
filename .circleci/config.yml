@@ -20,17 +20,18 @@ jobs:
           paths:
             - ~/.npm
       - run:
-          name: Install JUnit coverage reporter
-          command: yarn add --dev jest-junit
-      - run:
           name: Run tests with JUnit as reporter
-          command: npm run test:junit
+          command: yarn jest -- --ci --testResultsProcessor="jest-junit"
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+            JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
+      - run:
+          name: "JavaScript Linter"
+          # yarn here makes sure we are using the local jest binary
+          command: yarn lint -- --format junit -o reports/junit/js-lint-results.xml
       - store_test_results:
-          path: ./reports/junit/
+          path: reports/junit
       - store_artifacts:
-          path: ./reports/junit
+          path: reports/junit
       - sonarcloud/scan
 
 workflows:
