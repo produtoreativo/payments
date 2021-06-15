@@ -19,6 +19,6 @@ export class AppController {
       lastChangedBy: createdBy,
       ...req.body,
     };
-    return await this.appService.createInvoice(payload);;
+    return this.appService.createInvoice(payload);
   }
 }
