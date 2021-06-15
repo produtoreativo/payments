@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  sonarcloud: extendaretail/sonarcloud@1.0.0
+  sonarcloud: extendaretail/sonarcloud@0.0.2
 jobs:
   test:
     docker:
