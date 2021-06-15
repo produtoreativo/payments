@@ -1,5 +1,6 @@
 version: 2.1
-
+orbs:
+  sonarcloud: extendaretail/sonarcloud@1.0.0
 jobs:
   test:
     docker:
@@ -21,6 +22,7 @@ jobs:
       - run:
           name: Run Tests
           command: npm run test
+      - sonarcloud/scan
 
 workflows:
   orb-free-workflow:
