@@ -34,5 +34,6 @@ export class AppService {
     invoice.setProvider(providerPayload);
     await this.invoiceRepository.save(invoice);
     return invoice;
+    
   }
 }
