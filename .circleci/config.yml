@@ -24,10 +24,6 @@ jobs:
       - run:
           name: Run tests with Jest
           command: npm run test:cov
-      #- run:
-          #name: "JavaScript Linter"
-          # yarn here makes sure we are using the local jest binary
-          #command: yarn lint -- --format junit -o reports/junit/js-lint-results.xml
       - store_test_results:
           path: coverage
       - store_artifacts:
@@ -35,10 +31,14 @@ jobs:
       - sonarcloud/scan
       - codecov/upload:
           file: coverage/coverage-final.json
-      - heroku/deploy-via-git
+      - heroku/deploy-via-git:
+          pre-steps:
+            - run: npm install
+          #post-steps:
+          #  - run: your-database-migration-command
 
 workflows:
-  orb-free-workflow:
+  payments-workflow:
     jobs:
       - ci_cd:
           context: sonarcloud
