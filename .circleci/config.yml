@@ -2,8 +2,9 @@ version: 2.1
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.2
   codecov: codecov/codecov@1.2.3
+  heroku: circleci/heroku@1.2.6
 jobs:
-  test:
+  ci_cd:
     docker:
       - image: cimg/node:15.1
     steps:
@@ -34,9 +35,10 @@ jobs:
       - sonarcloud/scan
       - codecov/upload:
           file: coverage/coverage-final.json
+      - heroku/deploy-via-git
 
 workflows:
   orb-free-workflow:
     jobs:
-      - test:
+      - ci_cd:
           context: sonarcloud
