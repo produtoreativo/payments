@@ -8,3 +8,9 @@
 
 ## Subir as dependencias com docker
 docker compose u
+
+
+
+
+
+npm i @commitlint/cli @commitlint/config-conventional @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/release-notes-generator semantic-release commitizen cz-conventional-changelog husky -D
