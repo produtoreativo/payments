@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/git", {
+      "assets": ["dist/", "package.json","CHANGELOG.md"],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }],
+    "@semantic-release/github",
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    ["semantic-release-jira-releases", {
+      "projectId": "PAYM",
+      "releaseNameTemplate": "v${version}",
+      "jiraHost": "prodops-turma1.atlassian.net",
+      "ticketRegex": "[a-zA-Z]{3,5}-\\d{3,5}"
+    }]
+  ],
+  "branches": [
+    {name: 'master'},
+    {name: 'pre/rc', channel: 'pre/rc', prerelease: 'rc'},
+    {name: 'beta', channel: 'beta', prerelease: 'beta'},
+  ]
+}

@@ -25,8 +25,7 @@
     "keys:generate": "node -r tsconfig-paths/register -r ts-node/register scripts/generate-keys.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js",
     "migration:generate": "yarn typeorm migration:generate -n",
-    "commitmsg": "commitlint -E $GIT_PARAMS",
-    "release-semantic": "release-semantic",
+    "semantic-release": "GITHUB_TOKEN=$(grep GITHUB_TOKEN .env | cut -d '=' -f2) JIRA_AUTH=$(grep JIRA_AUTH .env | cut -d '=' -f2) semantic-release",
     "cm": "npx git-cz"
   },
   "dependencies": {
