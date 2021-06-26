@@ -18,7 +18,7 @@ export class AppService {
   }
 
   async createInvoice(payload) {
-    debugger
+    debugger;
     const filePath = process.env.PRIVATE_KEY;
     const file = fs.readFileSync(path.resolve(filePath));
     const privateKey = file.toString();
@@ -27,7 +27,7 @@ export class AppService {
       id: process.env.STARKBANK_ID,
       privateKey,
     });
-    debugger
+    debugger;
     const invoice = new Invoice();
     invoice.merge(payload);
     await this.invoiceRepository.save(invoice);
