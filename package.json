@@ -32,7 +32,10 @@
     "@nestjs/graphql": "^7.10.6",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/typeorm": "^7.1.5",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "pg": "^8.6.0",
+    "starkbank": "^2.6.0",
+    "typeorm": "^0.2.34"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
