@@ -1,16 +1,15 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as starkbank from 'starkbank';
 import { Invoice } from './domain/entities/Invoice';
+import { StarkbankService } from './startkbank/Starkbank.service';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(Invoice)
     private invoiceRepository: Repository<Invoice>,
+    private starkbankService: StarkbankService,
   ) {}
 
   getHello(): string {
@@ -18,21 +17,11 @@ export class AppService {
   }
 
   async createInvoice(payload) {
-    debugger;
-    const filePath = process.env.PRIVATE_KEY;
-    const file = fs.readFileSync(path.resolve(filePath));
-    const privateKey = file.toString();
-    starkbank.user = new starkbank.Project({
-      environment: 'sandbox',
-      id: process.env.STARKBANK_ID,
-      privateKey,
-    });
-    debugger;
     const invoice = new Invoice();
     invoice.merge(payload);
     await this.invoiceRepository.save(invoice);
     const dto = invoice.createDTO();
-    const providerPayload = await starkbank.invoice.create([dto]);
+    const providerPayload = await this.starkbankService.createInvoice(dto);
     invoice.setProvider(providerPayload);
     await this.invoiceRepository.save(invoice);
     return invoice;
