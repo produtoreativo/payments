@@ -9,8 +9,8 @@
 ## Subir as dependencias com docker
 docker compose u
 
-
-
+DATABASE_URL=postgres://starkbank:password@127.0.0.1:5432/starkbank
+STARKBANK_ID=78237327632723732
 
 
 npm i @commitlint/cli @commitlint/config-conventional @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/release-notes-generator semantic-release commitizen cz-conventional-changelog husky -D

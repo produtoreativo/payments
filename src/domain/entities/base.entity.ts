@@ -37,4 +37,5 @@ export abstract class BaseEntity {
       }
     }
   };
+
 }
