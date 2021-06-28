@@ -26,5 +26,4 @@ export class AppService {
     await this.invoiceRepository.save(invoice);
     return invoice;
   }
-
 }

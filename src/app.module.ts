@@ -10,7 +10,7 @@ import { Invoice } from './domain/entities/Invoice';
   imports: [
     TypeOrmModule.forRoot(ormconfig),
     TypeOrmModule.forFeature([Invoice]),
-    StarkbankModule
+    StarkbankModule,
   ],
   controllers: [AppController],
   providers: [AppService],

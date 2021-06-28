@@ -1,10 +1,8 @@
-
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'invoices' })
 export class Invoice extends BaseEntity {
-
   @Column()
   amount: number;
 
@@ -39,7 +37,5 @@ export class Invoice extends BaseEntity {
     this.providerId = item.id;
     this.status = item.status;
     this.providerPayload = item;
-
-  }
-
+  };
 }
