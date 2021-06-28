@@ -1,19 +1,15 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as starkbank from 'starkbank';
+import { StarkbankConfig } from './interfaces/StarkbankConfig';
+import { STARKBANK_MODULE_CONFIG } from './constants/Startkbank';
 
 @Injectable()
 export class StarkbankService {
-  constructor() {
-    const filePath = process.env.PRIVATE_KEY;
-    const file = fs.readFileSync(path.resolve(filePath));
-    const privateKey = file.toString();
-    starkbank.user = new starkbank.Project({
-      environment: 'sandbox',
-      id: process.env.STARKBANK_ID,
-      privateKey,
-    });
+  constructor(
+    @Inject(STARKBANK_MODULE_CONFIG)
+    private starkbankConfig: StarkbankConfig
+  ) {
+    starkbank.user = new starkbank.Project(this.starkbankConfig);
   }
 
   async createInvoice(dto) {

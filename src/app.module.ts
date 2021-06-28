@@ -10,7 +10,11 @@ import { Invoice } from './domain/entities/Invoice';
   imports: [
     TypeOrmModule.forRoot(ormconfig),
     TypeOrmModule.forFeature([Invoice]),
-    StarkbankModule,
+    StarkbankModule.register({
+      environment: process.env.STARKBANK_ENV,
+      id: process.env.STARKBANK_ID,
+      privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n')
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
