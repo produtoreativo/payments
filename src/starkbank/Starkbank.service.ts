@@ -7,7 +7,7 @@ import { STARKBANK_MODULE_CONFIG } from './constants/Startkbank';
 export class StarkbankService {
   constructor(
     @Inject(STARKBANK_MODULE_CONFIG)
-    private starkbankConfig: StarkbankConfig
+    private starkbankConfig: StarkbankConfig,
   ) {
     starkbank.user = new starkbank.Project(this.starkbankConfig);
   }

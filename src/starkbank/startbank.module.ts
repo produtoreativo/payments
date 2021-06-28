@@ -14,9 +14,9 @@ export class StarkbankModule {
           provide: STARKBANK_MODULE_CONFIG,
           useValue: starkbankConfig,
         },
-        StarkbankService
+        StarkbankService,
       ],
       exports: [StarkbankService],
-    }
+    };
   }
 }

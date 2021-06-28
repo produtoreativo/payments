@@ -13,8 +13,8 @@ import { Invoice } from './domain/entities/Invoice';
     StarkbankModule.register({
       environment: process.env.STARKBANK_ENV,
       id: process.env.STARKBANK_ID,
-      privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n')
-    })
+      privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
