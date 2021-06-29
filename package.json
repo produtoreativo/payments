@@ -24,9 +24,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "keys:generate": "node -r tsconfig-paths/register -r ts-node/register scripts/generate-keys.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js",
-    "migration:generate": "yarn typeorm migration:generate -n",
-    "semantic-release": "GITHUB_TOKEN=$(grep GITHUB_TOKEN .env | cut -d '=' -f2) JIRA_AUTH=$(grep JIRA_AUTH .env | cut -d '=' -f2) semantic-release",
-    "cm": "npx git-cz"
+    "migration:generate": "yarn typeorm migration:generate -n"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -35,6 +33,7 @@
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/typeorm": "^7.1.5",
     "dotenv": "^10.0.0",
+    "nestjs-s3": "^1.0.1",
     "pg": "^8.6.0",
     "starkbank": "^2.6.0",
     "typeorm": "^0.2.34"

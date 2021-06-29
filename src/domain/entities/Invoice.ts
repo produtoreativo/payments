@@ -1,4 +1,4 @@
-import { Entity, Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'invoices' })
@@ -13,16 +13,16 @@ export class Invoice extends BaseEntity {
   name: string;
 
   @Column({ nullable: true })
-  providerId: string;
-
-  @Column({ type: 'json', nullable: true })
-  providerPayload: JSON;
-
-  @Column({ default: false })
   status: string;
 
   @Column()
   orderId: number;
+
+  @Column({ nullable: true })
+  providerId: string;
+
+  @Column({ type: 'json', nullable: true })
+  providerPayload: JSON;
 
   createDTO = () => {
     return {

@@ -42,3 +42,6 @@ workflows:
     jobs:
       - ci_cd:
           context: sonarcloud
+          filters:
+            branches:
+              only: /master\/.*/
