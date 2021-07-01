@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Invoice } from './domain/entities/Invoice';
+import { InvoiceRepository } from './domain/repositories/InvoiceRepository';
 import { StarkbankService } from './starkbank/Starkbank.service';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(Invoice)
-    private invoiceRepository: Repository<Invoice>,
+    private invoiceRepository: InvoiceRepository,
     private starkbankService: StarkbankService,
   ) {}
 
