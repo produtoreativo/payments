@@ -10,8 +10,8 @@ import { StarkbankConfig } from './starkbank/interfaces/StarkbankConfig';
 import { StarkbankService } from './starkbank/Starkbank.service';
 import { StarkbankModule } from './starkbank/startbank.module';
 
-class StarkbankServiceMock extends StarkbankService{
-  createInvoice = jest.fn()
+class StarkbankServiceMock extends StarkbankService {
+  createInvoice = jest.fn();
 }
 
 describe('AppController', () => {
@@ -23,20 +23,19 @@ describe('AppController', () => {
     //starkbankConfig = { id: '1', environment: '', privateKey: ''};
 
     const app: TestingModule = await Test.createTestingModule({
-
       controllers: [AppController],
       providers: [
-/*         {
+        /*         {
           provide: STARKBANK_MODULE_CONFIG,
           useValue: starkbankConfig,
         }, */
         {
           provide: 'InvoiceRepository',
-          useClass: InvoiceRepository
+          useClass: InvoiceRepository,
         },
         {
           provide: 'StarkbankService',
-          useFactory: () => StarkbankServiceMock
+          useFactory: () => StarkbankServiceMock,
         },
         AppService,
       ],
