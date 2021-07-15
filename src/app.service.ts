@@ -19,7 +19,7 @@ export class AppService {
   async createInvoice(payload) {
     try {
       const invoice = new Invoice();
-      invoice.merge(payload);
+      this.invoiceRepository.merge(invoice, payload);
       await this.invoiceRepository.save(invoice);
       const dto = invoice.createDTO();
       const providerPayload = await this.starkbankService.createInvoice(dto);
