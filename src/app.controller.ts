@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Request } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Invoice } from './domain/entities/Invoice';
-
+import { Invoice } from './models/entities/Invoice';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -12,7 +11,10 @@ export class AppController {
   }
 
   @Post('invoice')
-  async create(@Request() req: Request): Promise<Invoice> {
+  async create(
+    @Request()
+    req: Request,
+  ): Promise<Invoice> {
     const createdBy = 'Rest API';
     const payload = {
       createdBy,

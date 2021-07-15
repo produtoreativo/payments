@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice } from './domain/entities/Invoice';
-import { StarkbankService } from './startkbank/Starkbank.service';
+import { Repository } from 'typeorm';
+import { Invoice } from './models/entities/Invoice';
+import { StarkbankService } from './starkbank/starkbank.service';
 
 @Injectable()
 export class AppService {

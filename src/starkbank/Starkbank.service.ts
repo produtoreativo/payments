@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Injectable } from '@nestjs/common';
 import * as starkbank from 'starkbank';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class StarkbankService {
     const file = fs.readFileSync(path.resolve(filePath));
     const privateKey = file.toString();
     starkbank.user = new starkbank.Project({
-      environment: 'sandbox',
+      environment: process.env.STARKBANK_ENV,
       id: process.env.STARKBANK_ID,
       privateKey,
     });

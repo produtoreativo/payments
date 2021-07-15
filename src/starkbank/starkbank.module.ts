@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { StarkbankService } from './Starkbank.service';
+import { StarkbankService } from './starkbank.service';
 
 @Module({
   providers: [StarkbankService],
