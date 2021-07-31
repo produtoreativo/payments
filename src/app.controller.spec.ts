@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InvoiceRepository } from './domain/repositories/InvoiceRepository';
-import { StarkbankService } from './starkbank/Starkbank.service';
+import { StarkbankService } from './starkbank/starkbank.service';
 
 class StarkbankServiceMock extends StarkbankService {
   createInvoice = jest.fn();

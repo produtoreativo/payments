@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Module } from '@nestjs/common';
 import { STARKBANK_MODULE_CONFIG } from './constants/Startkbank';
 import { StarkbankConfig } from './interfaces/StarkbankConfig';
-import { StarkbankService } from './Starkbank.service';
+import { StarkbankService } from './starkbank.service';
 
 @Global()
 @Module({})

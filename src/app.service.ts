@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Invoice } from './domain/entities/Invoice';
 import { InvoiceRepository } from './domain/repositories/InvoiceRepository';
-import { StarkbankService } from './starkbank/Starkbank.service';
+import { StarkbankService } from './starkbank/starkbank.service';
+import { UploadService } from './upload/upload.service';
 
 @Injectable()
 export class AppService {
@@ -10,6 +11,7 @@ export class AppService {
     @InjectRepository(Invoice)
     private invoiceRepository: InvoiceRepository,
     private starkbankService: StarkbankService,
+    private uploadService: UploadService,
   ) {}
 
   getHello(): string {
@@ -24,6 +26,7 @@ export class AppService {
       const dto = invoice.createDTO();
       const providerPayload = await this.starkbankService.createInvoice(dto);
       invoice.setProvider(providerPayload);
+      this.uploadService.sendJSON(invoice.id, 'starkbank', providerPayload);
       await this.invoiceRepository.save(invoice);
       return invoice;
     } catch (error) {

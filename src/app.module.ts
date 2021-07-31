@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import * as ormconfig from '../ormconfig';
 import { Invoice } from './domain/entities/Invoice';
 import { StarkbankModule } from './starkbank/startbank.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { StarkbankModule } from './starkbank/startbank.module';
         signatureVersion: 'v4',
       },
     }),
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
