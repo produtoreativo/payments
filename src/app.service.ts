@@ -25,8 +25,12 @@ export class AppService {
       await this.invoiceRepository.save(invoice);
       const dto = invoice.createDTO();
       const providerPayload = await this.starkbankService.createInvoice(dto);
-      invoice.setProvider(providerPayload);
-      this.uploadService.sendJSON(invoice.id, 'starkbank', providerPayload);
+      const awsPayload = await this.uploadService.sendJSON(
+        invoice.id,
+        'starkbank',
+        providerPayload,
+      );
+      invoice.setProvider(providerPayload, awsPayload);
       await this.invoiceRepository.save(invoice);
       return invoice;
     } catch (error) {

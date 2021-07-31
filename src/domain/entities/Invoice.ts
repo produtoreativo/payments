@@ -32,10 +32,10 @@ export class Invoice extends BaseEntity {
     };
   };
 
-  setProvider = (providerPayload) => {
+  setProvider = (providerPayload, awsPayload) => {
     const item = providerPayload[0];
     this.providerId = item.id;
     this.status = item.status;
-    this.providerPayload = item;
+    this.providerPayload = awsPayload;
   };
 }

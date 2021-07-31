@@ -15,14 +15,12 @@ export class UploadService {
     };
 
     const response: any = await this.s3
-      .putObject(data)
+      .upload(data)
       .promise()
       .catch((err) => {
-        console.log('Erro aws', err);
+        console.log('Erro na aws', err);
       });
-
     const { Location, Key } = response;
-    console.log(Location, Key);
-    return response;
+    return { Location, Key };
   }
 }
