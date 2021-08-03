@@ -37,9 +37,6 @@ jobs:
       # - sonarcloud/scan
       - codecov/upload:
           file: coverage/coverage-final.json
-      - heroku/deploy-via-git:
-        post-steps:
-            - run: npm run m:run
           # post-deploy:
           #   - run: 
           #       name: Run migrates
@@ -57,3 +54,6 @@ workflows:
           filters:
             branches:
               only: /master\/.*/
+      - heroku/deploy-via-git:
+          post-steps:
+            - run: npm run m:run
