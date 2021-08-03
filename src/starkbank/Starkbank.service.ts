@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as starkbank from 'starkbank';
-import { StarkbankConfig } from './interfaces/StarkbankConfig';
-import { STARKBANK_MODULE_CONFIG } from './constants/Startkbank';
+import { StarkbankConfig } from './interfaces/starkbank.config';
+import { STARKBANK_MODULE_CONFIG } from './constants/startkbank';
 
 @Injectable()
 export class StarkbankService {
