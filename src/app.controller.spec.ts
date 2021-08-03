@@ -3,9 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InvoiceRepository } from './domain/repositories/InvoiceRepository';
 import { StarkbankService } from './starkbank/starkbank.service';
+import { UploadService } from './upload/upload.service';
 
 class StarkbankServiceMock extends StarkbankService {
   createInvoice = jest.fn();
+}
+
+class UploadServiceMock extends UploadService {
+  sendJSON = jest.fn();
 }
 
 describe('AppController', () => {
@@ -23,6 +28,10 @@ describe('AppController', () => {
         {
           provide: 'StarkbankService',
           useFactory: () => StarkbankServiceMock,
+        },
+        {
+          provide: 'UploadService',
+          useFactory: () => UploadServiceMock,
         },
         AppService,
       ],
