@@ -4,9 +4,9 @@ dotenv.config({ path: process.env.DOTENV_PATH || undefined });
 
 const databaseConfig: ConnectionOptions = {
   type: "postgres",
-  synchronize: true,
+  synchronize: false,
   logging: true,
-  entities: [`${__dirname}/**/entities/*{.ts,.js}`],
+  entities: [`${__dirname}/**/*.entity{.ts,.js}`],
   migrations: [`${__dirname}/**/migration/*.ts`],
   url: process.env.DATABASE_URL,
   cli: {

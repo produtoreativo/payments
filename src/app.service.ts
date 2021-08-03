@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice } from './domain/entities/Invoice';
+import { Invoice } from './domain/entities/invoice.entity';
 import { InvoiceRepository } from './domain/repositories/InvoiceRepository';
 import { StarkbankService } from './starkbank/starkbank.service';
 import { UploadService } from './upload/upload.service';
