@@ -18,7 +18,10 @@ jobs:
           name: install packages
           command: npm ci
       - run:
-          name: install packages
+          name: Run prebuild
+          command: npm run prebuild
+      - run:
+          name: Run build
           command: npm run build
       - save_cache:
           key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
