@@ -1,42 +1,21 @@
+import { Injectable } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { InvoiceRepository } from './domain/repositories/InvoiceRepository';
-import { StarkbankService } from './starkbank/starkbank.service';
-import { UploadService } from './upload/upload.service';
-
-class StarkbankServiceMock extends StarkbankService {
-  createInvoice = jest.fn();
-}
-
-class UploadServiceMock extends UploadService {
-  sendJSON = jest.fn();
+@Injectable()
+class AppService {
+  getHello(): string {
+    return 'Hello World!';
+  }
 }
 
 describe('AppController', () => {
   let appController: AppController;
-  let appService: AppService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [
-        {
-          provide: 'InvoiceRepository',
-          useClass: InvoiceRepository,
-        },
-        {
-          provide: 'StarkbankService',
-          useFactory: () => StarkbankServiceMock,
-        },
-        {
-          provide: 'UploadService',
-          useFactory: () => UploadServiceMock,
-        },
-        AppService,
-      ],
+      providers: [AppService],
     }).compile();
-    appService = app.get<AppService>(AppService);
     appController = app.get<AppController>(AppController);
   });
 
