@@ -31,7 +31,7 @@ jobs:
       #- sonarcloud/scan
       #- codecov/upload:
       #    file: coverage/coverage-final.json
-      #- heroku/deploy-via-git
+      - heroku/deploy-via-git
       - run:
           name: install migrates
           command: NODE_ENV=production npm run m:run
