@@ -39,7 +39,6 @@ jobs:
           file: coverage/coverage-final.json
 
 workflows:
-  version: 2
   payments-workflow:
     jobs:
       - ci_cd:
