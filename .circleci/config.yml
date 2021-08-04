@@ -44,9 +44,6 @@ workflows:
     jobs:
       - ci_cd:
         context: sonarcloud
-        # filters:
-        #   branches:
-        #     only: /master\/.*/
       - heroku/deploy-via-git:
           context: sonarcloud
           post-steps:
