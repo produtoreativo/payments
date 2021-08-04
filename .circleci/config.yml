@@ -31,18 +31,12 @@ jobs:
       #- sonarcloud/scan
       #- codecov/upload:
       #    file: coverage/coverage-final.json
-      #- heroku/deploy-via-git
-          #pre-steps:
-          #  - run: npm install
-          #post-steps:
-          #  - run: your-database-migration-command
+      - heroku/deploy-via-git:
+          post-steps: 
+            - run: npm run m:run
 
 workflows:
   payments-workflow:
     jobs:
       - ci_cd:
           context: sonarcloud
-      - heroku/deploy-via-git:
-          context: sonarcloud
-          post-steps: 
-            - run: npm run m:run
