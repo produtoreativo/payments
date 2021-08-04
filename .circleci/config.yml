@@ -17,12 +17,6 @@ jobs:
       - run:
           name: install packages
           command: npm ci
-      - run:
-          name: Run prebuild
-          command: npm run prebuild
-      - run:
-          name: Run build
-          command: npm run build
       - save_cache:
           key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
@@ -37,9 +31,14 @@ jobs:
       - sonarcloud/scan
       - codecov/upload:
           file: coverage/coverage-final.json
+      - heroku/deploy-via-git
+          #pre-steps:
+          #  - run: npm install
+          #post-steps:
+          #  - run: your-database-migration-command
 
 workflows:
   payments-workflow:
     jobs:
       - ci_cd:
-        context: sonarcloud
+          context: sonarcloud
