@@ -44,7 +44,3 @@ workflows:
     jobs:
       - ci_cd:
         context: sonarcloud
-      - heroku/deploy-via-git:
-          context: sonarcloud
-          post-steps:
-            - run: npm run m:run
