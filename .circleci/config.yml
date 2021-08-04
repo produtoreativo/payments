@@ -31,7 +31,7 @@ jobs:
       #- sonarcloud/scan
       #- codecov/upload:
       #    file: coverage/coverage-final.json
-      - heroku/deploy-via-git
+      #- heroku/deploy-via-git
           #pre-steps:
           #  - run: npm install
           #post-steps:
@@ -42,3 +42,7 @@ workflows:
     jobs:
       - ci_cd:
           context: sonarcloud
+      - heroku/deploy-via-git:
+          context: sonarcloud
+          post-steps: 
+            - run: npm run m:run
