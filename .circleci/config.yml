@@ -3,6 +3,7 @@ orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.2
   codecov: codecov/codecov@1.2.3
   heroku: circleci/heroku@1.2.6
+  slack: circleci/slack@4.4.2
 jobs:
   ci_cd:
     docker:
@@ -35,6 +36,13 @@ jobs:
       - run:
           name: install migrates
           command: NODE_ENV=production npm run m:run
+      - slack/notify:
+          event: fail
+          mentions: '@cmilfont'
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
 
 workflows:
   payments-workflow:
