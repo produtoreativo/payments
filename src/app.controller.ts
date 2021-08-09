@@ -19,8 +19,8 @@ export class AppController {
         taxId: '78006325391',
         amount: 100,
         status: 'pending',
-      }
-    ]
+      },
+    ];
   }
 
   @Post('invoice')
