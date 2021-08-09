@@ -11,6 +11,18 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('search')
+  search() {
+    return [
+      {
+        name: 'Christiano',
+        taxId: '78006325391',
+        amount: 100,
+        status: 'pending',
+      }
+    ]
+  }
+
   @Post('invoice')
   async create(@Request() req: Request): Promise<Invoice> {
     const createdBy = 'Rest API';
