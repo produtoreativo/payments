@@ -22,16 +22,16 @@ jobs:
           key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - ~/.npm
-      # - run:
-      #    name: Run tests with Jest
-      #    command: npm run test:cov
-      #- store_test_results:
-      #    path: coverage
-      #- store_artifacts:
-      #    path: coverage
-      #- sonarcloud/scan
-      #- codecov/upload:
-      #    file: coverage/coverage-final.json
+      - run:
+         name: Run tests with Jest
+         command: npm run test:cov
+      - store_test_results:
+         path: coverage
+      - store_artifacts:
+         path: coverage
+      - sonarcloud/scan
+      - codecov/upload:
+         file: coverage/coverage-final.json
       - heroku/deploy-via-git
       - run:
           name: install migrates
