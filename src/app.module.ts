@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { S3Module } from 'nestjs-s3';
+//import { S3Module } from 'nestjs-s3';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as ormconfig from '../ormconfig';
 import { Invoice } from './domain/entities/invoice.entity';
 import { StarkbankModule } from './starkbank/startbank.module';
-import { UploadModule } from './upload/upload.module';
-import { KafkaModule } from './kafka/kafka.module';
+//import { UploadModule } from './upload/upload.module';
+//import { KafkaModule } from './kafka/kafka.module';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { LogLevel } from '@sentry/types';
 
