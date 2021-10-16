@@ -11,7 +11,7 @@ export class AppService {
     @InjectRepository(Invoice)
     private invoiceRepository: InvoiceRepository,
     private starkbankService: StarkbankService,
-    private uploadService: UploadService,
+    //private uploadService: UploadService,
   ) {}
 
   getHello(): string {
@@ -29,12 +29,15 @@ export class AppService {
       await this.invoiceRepository.save(invoice);
       const dto = invoice.createDTO();
       const providerPayload = await this.starkbankService.createInvoice(dto);
+      /*
       const awsPayload = await this.uploadService.sendJSON(
         invoice.id,
         'starkbank',
         providerPayload,
       );
       invoice.setProvider(providerPayload, awsPayload);
+      */
+      invoice.setProvider(providerPayload, providerPayload);
       await this.invoiceRepository.save(invoice);
       return invoice;
     } catch (error) {

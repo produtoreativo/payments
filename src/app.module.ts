@@ -29,6 +29,7 @@ import { LogLevel } from '@sentry/types';
       id: process.env.STARKBANK_ID,
       privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
     }),
+    /*
     S3Module.forRoot({
       config: {
         accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
@@ -49,6 +50,7 @@ import { LogLevel } from '@sentry/types';
     }),
 
     UploadModule,
+    */
   ],
   controllers: [AppController],
   providers: [AppService],
