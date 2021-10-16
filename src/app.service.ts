@@ -1,29 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice } from './domain/entities/Invoice';
-import { StarkbankService } from './startkbank/Starkbank.service';
+import { Invoice } from './domain/entities/invoice.entity';
+import { InvoiceRepository } from './domain/repositories/invoice.repository';
+import { StarkbankService } from './starkbank/starkbank.service';
+import { UploadService } from './upload/upload.service';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(Invoice)
-    private invoiceRepository: Repository<Invoice>,
+    private invoiceRepository: InvoiceRepository,
     private starkbankService: StarkbankService,
+    private uploadService: UploadService,
   ) {}
 
   getHello(): string {
     return 'Hello World!';
   }
 
+  async listAll() {
+    return this.invoiceRepository.find();
+  }
+
   async createInvoice(payload) {
-    const invoice = new Invoice();
-    invoice.merge(payload);
-    await this.invoiceRepository.save(invoice);
-    const dto = invoice.createDTO();
-    const providerPayload = await this.starkbankService.createInvoice(dto);
-    invoice.setProvider(providerPayload);
-    await this.invoiceRepository.save(invoice);
-    return invoice;
+    try {
+      const invoice = new Invoice();
+      this.invoiceRepository.merge(invoice, payload);
+      await this.invoiceRepository.save(invoice);
+      const dto = invoice.createDTO();
+      const providerPayload = await this.starkbankService.createInvoice(dto);
+      const awsPayload = await this.uploadService.sendJSON(
+        invoice.id,
+        'starkbank',
+        providerPayload,
+      );
+      invoice.setProvider(providerPayload, awsPayload);
+      await this.invoiceRepository.save(invoice);
+      return invoice;
+    } catch (error) {
+      throw new Error('Erro desconhecido');
+    }
   }
 }

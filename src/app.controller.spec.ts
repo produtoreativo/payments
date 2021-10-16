@@ -1,6 +1,12 @@
+import { Injectable } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+@Injectable()
+class AppService {
+  getHello(): string {
+    return 'Hello World!';
+  }
+}
 
 describe('AppController', () => {
   let appController: AppController;
@@ -10,7 +16,6 @@ describe('AppController', () => {
       controllers: [AppController],
       providers: [AppService],
     }).compile();
-
     appController = app.get<AppController>(AppController);
   });
 

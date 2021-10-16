@@ -3,6 +3,7 @@ orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.2
   codecov: codecov/codecov@1.2.3
   heroku: circleci/heroku@1.2.6
+  slack: circleci/slack@4.4.2
 jobs:
   ci_cd:
     docker:
@@ -22,20 +23,26 @@ jobs:
           paths:
             - ~/.npm
       - run:
-          name: Run tests with Jest
-          command: npm run test:cov
+         name: Run tests with Jest
+         command: npm run test:cov
       - store_test_results:
-          path: coverage
+         path: coverage
       - store_artifacts:
-          path: coverage
+         path: coverage
       - sonarcloud/scan
       - codecov/upload:
-          file: coverage/coverage-final.json
+         file: coverage/coverage-final.json
       - heroku/deploy-via-git
-          #pre-steps:
-          #  - run: npm install
-          #post-steps:
-          #  - run: your-database-migration-command
+      - run:
+          name: install migrates
+          command: NODE_ENV=production npm run m:run
+      - slack/notify:
+          event: fail
+          mentions: '@cmilfont'
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
 
 workflows:
   payments-workflow:
