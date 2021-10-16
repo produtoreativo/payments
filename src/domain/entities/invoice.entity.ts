@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class InvoiceDTO {
   @ApiProperty()
-  amount: number
+  amount: number;
   @ApiProperty()
   taxId: string;
   @ApiProperty()
@@ -13,7 +13,7 @@ export class InvoiceDTO {
 
 export class OrderDTO {
   @ApiProperty()
-  amount: number
+  amount: number;
   @ApiProperty()
   taxId: string;
   @ApiProperty()

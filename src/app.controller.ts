@@ -1,11 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { Scope } from '@sentry/node';
 import { AppService } from './app.service';
@@ -19,7 +13,7 @@ export class AppController {
     @InjectSentry() private readonly client: SentryService,
   ) {}
 
-  @ApiOperation({ summary: 'Generate invoice per Order'})
+  @ApiOperation({ summary: 'Generate invoice per Order' })
   @ApiResponse({ status: 201, description: 'Invoice type', type: InvoiceDTO })
   @Post('invoice')
   async create(@Body() body: OrderDTO): Promise<InvoiceDTO> {
@@ -55,5 +49,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
 }

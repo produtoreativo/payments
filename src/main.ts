@@ -10,11 +10,11 @@ async function bootstrap() {
     origin: true,
   });
   const config = new DocumentBuilder()
-  .setTitle('Payments Platform')
-  .setDescription('Payments Platform API description')
-  .setVersion('1.0')
-  .addTag('payments')
-  .build();
+    .setTitle('Payments Platform')
+    .setDescription('Payments Platform API description')
+    .setVersion('1.0')
+    .addTag('payments')
+    .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
