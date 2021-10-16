@@ -9,10 +9,19 @@ import { Invoice } from './domain/entities/invoice.entity';
 import { StarkbankModule } from './starkbank/startbank.module';
 import { UploadModule } from './upload/upload.module';
 import { KafkaModule } from './kafka/kafka.module';
+import { SentryModule } from '@ntegral/nestjs-sentry';
+import { LogLevel } from '@sentry/types';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    SentryModule.forRoot({
+      debug: true,
+      dsn: process.env.SENTRY_DSN,
+      logLevel: LogLevel.Debug,
+      environment: 'development',
+      tracesSampleRate: 1.0,
+    }),
     TypeOrmModule.forRoot(ormconfig),
     TypeOrmModule.forFeature([Invoice]),
     StarkbankModule.register({
@@ -38,6 +47,7 @@ import { KafkaModule } from './kafka/kafka.module';
         password: process.env.CLOUDKARAFKA_PASSWORD,
       },
     }),
+
     UploadModule,
   ],
   controllers: [AppController],

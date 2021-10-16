@@ -1,5 +1,26 @@
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class InvoiceDTO {
+  @ApiProperty()
+  amount: number
+  @ApiProperty()
+  taxId: string;
+  @ApiProperty()
+  name: string;
+}
+
+export class OrderDTO {
+  @ApiProperty()
+  amount: number
+  @ApiProperty()
+  taxId: string;
+  @ApiProperty()
+  name: string;
+  @ApiProperty()
+  orderId: number;
+}
 
 @Entity({ name: 'invoices' })
 export class Invoice extends BaseEntity {
@@ -24,7 +45,7 @@ export class Invoice extends BaseEntity {
   @Column({ type: 'json', nullable: true })
   providerPayload: JSON;
 
-  createDTO = () => {
+  createDTO = (): InvoiceDTO => {
     return {
       amount: this.amount,
       taxId: this.taxId,

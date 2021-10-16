@@ -14,3 +14,15 @@ STARKBANK_ID=78237327632723732
 
 
 npm i @commitlint/cli @commitlint/config-conventional @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/release-notes-generator semantic-release commitizen cz-conventional-changelog husky -D
+
+
+
+## Links uteis
+https://prodops.sandbox.starkbank.com/integration
+
+https://starkbank.com/docs/api#invoice
+
+https://github.com/starkbank/sdk-node
+
+https://starkbank.com/faq/how-to-create-ecdsa-keys
+

@@ -8,11 +8,11 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: "password"
-      POSTGRES_USER: "starkbank"
-      POSTGRES_DB: "starkbank"
+      POSTGRES_USER: "payments"
+      POSTGRES_DB: "payments"
   redis:
     network_mode: host
-    container_name: redis-starkbank
+    container_name: redis-payments
     image: redis
     command: redis-server
     ports:

@@ -18,6 +18,10 @@ export class AppService {
     return 'Hello World!';
   }
 
+  async listAll() {
+    return this.invoiceRepository.find();
+  }
+
   async createInvoice(payload) {
     try {
       const invoice = new Invoice();

@@ -1,18 +1,45 @@
-import { Controller, Get, Post, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
+import { Scope } from '@sentry/node';
 import { AppService } from './app.service';
-import { Invoice } from './domain/entities/invoice.entity';
+import { InvoiceDTO, OrderDTO } from './domain/entities/invoice.entity';
 
+@ApiBearerAuth()
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    @InjectSentry() private readonly client: SentryService,
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @ApiOperation({ summary: 'Generate invoice per Order'})
+  @ApiResponse({ status: 201, description: 'Invoice type', type: InvoiceDTO })
+  @Post('invoice')
+  async create(@Body() body: OrderDTO): Promise<InvoiceDTO> {
+    const createdBy = 'Rest API';
+    const payload = { createdBy, lastChangedBy: createdBy, ...body };
+    try {
+      const invoiceDto = await this.appService.createInvoice(payload);
+      return invoiceDto;
+    } catch (exception) {
+      const scope = new Scope();
+      scope.setTag('invoice', 'invoice');
+      this.client.instance().captureException(exception, () => scope);
+      return exception;
+    }
   }
 
   @Get('search')
   search() {
+    return this.appService.listAll();
+    /*
     return [
       {
         name: 'Christiano',
@@ -21,16 +48,12 @@ export class AppController {
         status: 'pending',
       },
     ];
+    */
   }
 
-  @Post('invoice')
-  async create(@Request() req: Request): Promise<Invoice> {
-    const createdBy = 'Rest API';
-    const payload = {
-      createdBy,
-      lastChangedBy: createdBy,
-      ...req.body,
-    };
-    return this.appService.createInvoice(payload);
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
   }
+
 }
