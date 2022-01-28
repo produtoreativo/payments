@@ -11,6 +11,8 @@ import { StarkbankModule } from './starkbank/startbank.module';
 //import { KafkaModule } from './kafka/kafka.module';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { LogLevel } from '@sentry/types';
+import { Produto } from './domain/entities/produto.entity';
+import { KafkaModule } from './kafka/kafka.module';
 
 @Module({
   imports: [
@@ -23,11 +25,22 @@ import { LogLevel } from '@sentry/types';
       tracesSampleRate: 1.0,
     }),
     TypeOrmModule.forRoot(ormconfig),
-    TypeOrmModule.forFeature([Invoice]),
+    TypeOrmModule.forFeature([Invoice, Produto]),
     StarkbankModule.register({
       environment: process.env.STARKBANK_ENV,
       id: process.env.STARKBANK_ID,
       privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
+    }),
+
+    KafkaModule.forRoot({
+      brokers: process.env.KAFKA_BROKER_LIST.split(','),
+      clientId: 'prodops-payments',
+      ssl: true,
+      sasl: {
+        mechanism: 'scram-sha-512', //process.env.KAFKA_BROKER_MECHANISM, // scram-sha-256 or scram-sha-512
+        username: process.env.KAFKA_BROKER_USERNAME,
+        password: process.env.KAFKA_BROKER_PASSWORD,
+      },
     }),
     /*
     S3Module.forRoot({
@@ -38,16 +51,7 @@ import { LogLevel } from '@sentry/types';
         signatureVersion: 'v4',
       },
     }),
-    KafkaModule.forRoot({
-      brokers: process.env.CLOUDKARAFKA_BROKERS.split(','),
-      clientId: 'prodops-payments',
-      ssl: true,
-      sasl: {
-        mechanism: 'scram-sha-256', // scram-sha-256 or scram-sha-512
-        username: process.env.CLOUDKARAFKA_USERNAME,
-        password: process.env.CLOUDKARAFKA_PASSWORD,
-      },
-    }),
+
 
     UploadModule,
     */

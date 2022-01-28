@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Invoice } from './domain/entities/invoice.entity';
 import { InvoiceRepository } from './domain/repositories/invoice.repository';
+import { KafkaService } from './kafka/kafka.service';
 import { StarkbankService } from './starkbank/starkbank.service';
 //import { UploadService } from './upload/upload.service';
 
@@ -10,6 +11,7 @@ export class AppService {
   constructor(
     @InjectRepository(Invoice)
     private invoiceRepository: InvoiceRepository,
+    private kafkaService: KafkaService,
     private starkbankService: StarkbankService, //private uploadService: UploadService,
   ) {}
 
@@ -38,9 +40,26 @@ export class AppService {
       */
       invoice.setProvider(providerPayload, providerPayload);
       await this.invoiceRepository.save(invoice);
+
+      const message = {
+        providers: [
+          {
+            type: 'Mail',
+            to: 'fabriciolopesvital@gmail.com',
+          },
+        ],
+        templateParams: {
+          template: 'payment',
+          params: {
+            displayName: 'FABRICIO LOPES VITAL',
+          },
+        },
+      };
+      await this.kafkaService.sendPayload(message);
       return invoice;
     } catch (error) {
-      throw new Error('Erro desconhecido');
+      debugger;
+      throw new Error(error);
     }
   }
 }
