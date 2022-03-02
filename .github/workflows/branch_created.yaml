@@ -20,4 +20,4 @@ jobs:
           webhook_type: 'json'
           webhook_url: ${{ secrets.WEBHOOK_URL }}
           webhook_secret: s3cr4t
-          data: '{ "eventType": "START_CYCLE", "name" : "Coding Time" }'
+          data: '{"ref":"${{github.event.ref}}", "eventType": "START_CYCLE", "name" : "Coding Time" }'
