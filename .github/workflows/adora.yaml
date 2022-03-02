@@ -19,4 +19,4 @@ jobs:
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL }}
           webhook_secret: s3cr4t
-          data: '${{github.event}}'
+          data: '{ "event": ${{github.event}} }'
