@@ -11,7 +11,7 @@ export class AppService {
   constructor(
     @InjectRepository(Invoice)
     private invoiceRepository: InvoiceRepository,
-    private kafkaService: KafkaService,
+    //private kafkaService: KafkaService,
     private starkbankService: StarkbankService, //private uploadService: UploadService,
   ) {}
 
@@ -55,7 +55,7 @@ export class AppService {
           },
         },
       };
-      await this.kafkaService.sendPayload(message);
+     // await this.kafkaService.sendPayload(message);
       return invoice;
     } catch (error) {
       debugger;

@@ -24,15 +24,19 @@ export class AppController {
   async create(@Body() body: OrderDTO): Promise<InvoiceDTO> {
     const createdBy = 'Rest API';
     const payload = { createdBy, lastChangedBy: createdBy, ...body };
+    console.log('Body', body)
     try {
       const invoiceDto = await this.appService.createInvoice(payload);
       return invoiceDto;
     } catch (exception) {
-      debugger;
       const scope = new Scope();
       scope.setTag('invoice', 'invoice');
       this.client.instance().captureException(exception, () => scope);
-      return exception;
+      return {
+        name: exception.name,
+        taxId: '',
+        amount: 0,
+      };
     }
   }
 

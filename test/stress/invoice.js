@@ -1,9 +1,9 @@
 import http from "k6/http";
 import { check, sleep, group } from "k6";
-//import uuid from './uuid';
+import uuid from './uuid';
 export const options = {
-  vus: 1,
-  duration: "1s"
+  vus: 12000,
+  duration: "600s"
 };
 
 const url = `http://${__ENV.URL}/invoice`;
@@ -15,8 +15,7 @@ export default function() {
         "amount": 1560,
         "taxId": "295.171.830-62",
         "name": "Christiano Milfont",
-        "orderId":  998373763,
-        //"orderId":  uuid.v4(),
+        "orderId":  uuid.v4(),
     });
   
     const params = {
