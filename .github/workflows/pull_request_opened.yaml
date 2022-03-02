@@ -2,6 +2,8 @@ name: Pull Request Opened
 
 on:
   pull_request:
+    types:
+      - opened
     branches:
       - '**'
 
