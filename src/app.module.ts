@@ -32,16 +32,16 @@ import { KafkaModule } from './kafka/kafka.module';
       privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
     }),
 
-    KafkaModule.forRoot({
-      brokers: process.env.KAFKA_BROKER_LIST.split(','),
-      clientId: 'prodops-payments',
-      ssl: true,
-      sasl: {
-        mechanism: 'scram-sha-512', //process.env.KAFKA_BROKER_MECHANISM, // scram-sha-256 or scram-sha-512
-        username: process.env.KAFKA_BROKER_USERNAME,
-        password: process.env.KAFKA_BROKER_PASSWORD,
-      },
-    }),
+    // KafkaModule.forRoot({
+    //   brokers: process.env.KAFKA_BROKER_LIST.split(','),
+    //   clientId: 'prodops-payments',
+    //   ssl: true,
+    //   sasl: {
+    //     mechanism: 'scram-sha-512', //process.env.KAFKA_BROKER_MECHANISM, // scram-sha-256 or scram-sha-512
+    //     username: process.env.KAFKA_BROKER_USERNAME,
+    //     password: process.env.KAFKA_BROKER_PASSWORD,
+    //   },
+    // }),
     /*
     S3Module.forRoot({
       config: {
