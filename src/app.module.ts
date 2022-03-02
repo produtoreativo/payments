@@ -12,7 +12,7 @@ import { StarkbankModule } from './starkbank/startbank.module';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { LogLevel } from '@sentry/types';
 import { Produto } from './domain/entities/produto.entity';
-import { KafkaModule } from './kafka/kafka.module';
+// import { KafkaModule } from './kafka/kafka.module';
 
 @Module({
   imports: [
