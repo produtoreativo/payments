@@ -20,3 +20,4 @@ jobs:
           webhook_type: 'json-extended'
           webhook_url: ${{ secrets.WEBHOOK_URL }}
           webhook_secret: s3cr4t
+          data: '{ "eventType": "SHIP", "env" : "staging" }'
