@@ -18,6 +18,6 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_type: 'json'
-          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_url: ${{ secrets.WEBHOOK_HACK_URL }}
           webhook_secret: s3cr4t
           data: '{"ref":"${{github.event.ref}}", "eventType": "START_CYCLE", "name" : "Coding Time" }'

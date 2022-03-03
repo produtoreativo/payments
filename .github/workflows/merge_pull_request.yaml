@@ -18,6 +18,6 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_type: 'json-extended'
-          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_url: ${{ secrets.WEBHOOK_START_FROM_MERGE_URL }}
           webhook_secret: s3cr4t
           data: '{ "eventType": "START_CYCLE", "name" : "Deploy Time" }'

@@ -26,5 +26,11 @@ https://github.com/starkbank/sdk-node
 
 https://starkbank.com/faq/how-to-create-ecdsa-keys
 
-107
+WEBHOOK_HACK_URL
+https://adora.produtoreativo.com.br/github/1/hack
 
+WEBHOOK_START_URL
+https://adora.produtoreativo.com.br/github/1/start
+
+WEBHOOK_START_FROM_MERGE_URL
+https://adora.produtoreativo.com.br/github/1/start_from_merge
