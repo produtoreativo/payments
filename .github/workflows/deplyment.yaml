@@ -1,0 +1,12 @@
+name: Deployment Status
+
+on:
+  deployment_status:
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo
+        run: echo "${{github.event}}"
