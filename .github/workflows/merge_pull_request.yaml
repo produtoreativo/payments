@@ -3,7 +3,7 @@ name: Merge Pull Request
 on:
   push:
     branches:
-      - 'master'
+      - master
 
 jobs:
   
