@@ -19,7 +19,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "payments-prodoops"
           heroku_email: "cmilfont@gmail.com"
-          branch: "master"
+          branch: "PD-3100"
           healthcheck: "https://payments-prodoops.herokuapp.com/"
           checkstring: "Hello World!"
           delay: 5
