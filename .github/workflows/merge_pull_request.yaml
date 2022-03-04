@@ -14,7 +14,7 @@ jobs:
 
     steps:
 
-      - name: Invoke deployment hook
+      - name: Invoke merge pull request hook
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_type: 'json-extended'

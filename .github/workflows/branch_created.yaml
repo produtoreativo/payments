@@ -14,7 +14,7 @@ jobs:
 
     steps:
 
-      - name: Invoke deployment hook
+      - name: Invoke branch created hook
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_type: 'json'
