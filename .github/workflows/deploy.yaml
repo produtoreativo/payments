@@ -16,11 +16,13 @@ jobs:
       - name: Login to Heroku Container registry
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login 
+        run: heroku git:remote -a payments-prodoops 
+
       - name: Build and push
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku deploy:master -a payments-prodoops 
+        run: git push heroku master
+        # run: heroku deploy:master -a payments-prodoops 
       # - name: Release
       #   env:
       #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
