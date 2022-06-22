@@ -69,5 +69,4 @@ export class AppController {
   getHello2(): string {
     return this.appService.getHello();
   }
-
 }
