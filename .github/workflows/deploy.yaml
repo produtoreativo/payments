@@ -1,21 +1,26 @@
-name: Deploy
+name: Deployment
 
 on:
   push:
     branches:
-      - master
+      - "**"
 
 jobs:
-  build:
+  deployment:
     runs-on: ubuntu-latest
+    environment: staging
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Invoke deployment hook
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12s
+      - name: Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "payments-prodoops"
           heroku_email: "cmilfont@gmail.com"
-          healthcheck: "https://payments-prodoops.herokuapp.com/s"
+          branch: "PD-3100"
+          healthcheck: "https://payments-prodoops.herokuapp.com/"
           checkstring: "Hello World!"
+          delay: 5
+          rollbackonhealthcheckfailed: true

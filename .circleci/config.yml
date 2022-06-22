@@ -1,5 +1,6 @@
 version: 2.1
 orbs:
+  snyk: snyk/snyk@1.1.2
   sonarcloud: sonarsource/sonarcloud@1.0.2
   codecov: codecov/codecov@1.2.3
   heroku: circleci/heroku@1.2.6
@@ -11,8 +12,6 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          # See the configuration reference documentation for more details on using restore_cache and save_cache steps
-          # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
             - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
       - run:
@@ -22,6 +21,19 @@ jobs:
           key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - ~/.npm
+
+      - run:
+        name: Run Lint
+        command: npm run lint
+
+      - sonarcloud/scan
+      - codecov/upload:
+         file: coverage/coverage-final.json
+
+      - snyk/scan:
+          monitor-on-build: true
+          severity-threshold: high
+
       - run:
          name: Run tests with Jest
          command: npm run test:cov
@@ -29,9 +41,9 @@ jobs:
          path: coverage
       - store_artifacts:
          path: coverage
-      - sonarcloud/scan
-      - codecov/upload:
-         file: coverage/coverage-final.json
+
+
+         
       - heroku/deploy-via-git
       - run:
           name: install migrates

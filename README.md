@@ -34,3 +34,5 @@ https://adora.produtoreativo.com.br/github/1/start
 WEBHOOK_START_FROM_MERGE_URL
 https://adora.produtoreativo.com.br/github/1/start_from_merge
 
+WEBHOOK_DEPLOY_URL
+https://adora.produtoreativo.com.br/github/1/deploy

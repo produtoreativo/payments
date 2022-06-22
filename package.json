@@ -110,6 +110,16 @@
         "functions": 80,
         "lines": 80,
         "statements": 80
+      },
+      "./src/domain/": {
+        "branches": 40,
+        "statements": 40
+      },
+      "./src/starkbank/": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
       }
     },
     "coverageDirectory": "../coverage",

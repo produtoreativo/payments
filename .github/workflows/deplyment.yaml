@@ -1,0 +1,17 @@
+name: Deployment Status
+
+on:
+  deployment_status:
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Invoke deployment4 status hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_type: 'json-extended'
+          webhook_url: ${{ secrets.WEBHOOK_DEPLOY_URL }}
+          webhook_secret: s3cr4t
+          data: '{ "eventType": "DEPLOY", "name" : "Deploy" }'
