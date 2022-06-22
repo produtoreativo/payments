@@ -10,7 +10,7 @@ import { StarkbankModule } from './starkbank/startbank.module';
 //import { UploadModule } from './upload/upload.module';
 //import { KafkaModule } from './kafka/kafka.module';
 import { SentryModule } from '@ntegral/nestjs-sentry';
-import { LogLevel } from '@sentry/types';
+import { SeverityLevels } from '@sentry/types';
 import { Produto } from './domain/entities/produto.entity';
 // import { KafkaModule } from './kafka/kafka.module';
 
@@ -20,7 +20,8 @@ import { Produto } from './domain/entities/produto.entity';
     SentryModule.forRoot({
       debug: true,
       dsn: process.env.SENTRY_DSN,
-      logLevel: LogLevel.Debug,
+      logLevels: ['debug'],
+     // logLevel: SeverityLevel.Debug,
       environment: 'development',
       tracesSampleRate: 1.0,
     }),
