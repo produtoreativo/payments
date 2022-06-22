@@ -21,7 +21,7 @@ import { Produto } from './domain/entities/produto.entity';
       debug: true,
       dsn: process.env.SENTRY_DSN,
       logLevels: ['debug'],
-     // logLevel: SeverityLevel.Debug,
+      // logLevel: SeverityLevel.Debug,
       environment: 'development',
       tracesSampleRate: 1.0,
     }),
