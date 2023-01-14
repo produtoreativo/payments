@@ -8,7 +8,12 @@ class AppService {
   }
 }
 
-describe('AppController', () => {
+describe(`
+AppController
+Como uma consultora da Natura
+Eu quero cadastrar uma indicação de cliente
+Para enviar descontos com meu código
+`, () => {
   let appController: AppController;
 
   beforeEach(async () => {

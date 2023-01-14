@@ -18,7 +18,12 @@ export class AppController {
     private produtoRepository: Repository<Produto>,
   ) {}
 
-  @ApiOperation({ summary: 'Generate invoice by Order' })
+  @ApiOperation({
+    summary: `
+    Generate invoice by Order
+    bla bla bla 
+    `,
+  })
   @ApiResponse({ status: 201, description: 'Invoice type', type: InvoiceDTO })
   @Post('invoice')
   async create(@Body() body: OrderDTO): Promise<InvoiceDTO> {
