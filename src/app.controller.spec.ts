@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-@Injectable()
-class AppService {
-  getHello(): string {
-    return 'Hello World!';
-  }
-}
+import { AppService } from './app.service';
+import { InvoiceDTO } from './domain/entities/invoice.entity';
+import { InvoiceRepository } from './domain/repositories/invoice.repository';
+import { StarkbankService } from './starkbank/starkbank.service';
+
+class StarkbankServiceMock extends StarkbankService {}
 
 describe('AppController', () => {
   let appController: AppController;
@@ -14,8 +14,19 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        {
+          provide: 'InvoiceRepository',
+          useClass: InvoiceRepository,
+        },
+        {
+          provide: 'StarkbankService',
+          useFactory: () => StarkbankServiceMock,
+        },
+        AppService
+      ],
     }).compile();
+    
     appController = app.get<AppController>(AppController);
   });
 
