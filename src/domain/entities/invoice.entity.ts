@@ -2,7 +2,7 @@ import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Invoice as InvoiceMaster } from 'starkbank';
-import { AnyAaaaRecord } from 'dns';
+
 export class InvoiceDTO extends InvoiceMaster {
   @ApiProperty()
   amount: number;
@@ -25,6 +25,10 @@ export class OrderDTO {
 
 @Entity({ name: 'invoices' })
 export class Invoice extends BaseEntity {
+  constructor() {
+    super();
+  }
+
   @Column()
   amount: number;
 
