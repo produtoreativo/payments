@@ -5,7 +5,11 @@ import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { Scope } from '@sentry/node';
 import { Repository } from 'typeorm';
 import { AppService } from './app.service';
-import { InvoiceDTO, OrderDTO } from './domain/entities/invoice.entity';
+import {
+  Invoice,
+  InvoiceDTO,
+  OrderDTO,
+} from './domain/entities/invoice.entity';
 import { Produto } from './domain/entities/produto.entity';
 
 @ApiBearerAuth()
@@ -21,13 +25,13 @@ export class AppController {
   @ApiOperation({ summary: 'Generate invoice by Order' })
   @ApiResponse({ status: 201, description: 'Invoice type', type: InvoiceDTO })
   @Post('invoice')
-  async create(@Body() body: OrderDTO): Promise<InvoiceDTO> {
+  async create(@Body() body: OrderDTO): Promise<any> {
     const createdBy = 'Rest API';
     const payload = { createdBy, lastChangedBy: createdBy, ...body };
     console.log('Body', body);
     try {
-      const invoiceDto = await this.appService.createInvoice(payload);
-      return invoiceDto;
+      const invoice: Invoice = await this.appService.createInvoice(payload);
+      return invoice;
     } catch (exception) {
       const scope = new Scope();
       scope.setTag('invoice', 'invoice');

@@ -1,8 +1,9 @@
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-
-export class InvoiceDTO {
+import { Invoice as InvoiceMaster } from 'starkbank';
+import { AnyAaaaRecord } from 'dns';
+export class InvoiceDTO extends InvoiceMaster {
   @ApiProperty()
   amount: number;
   @ApiProperty()
@@ -45,7 +46,7 @@ export class Invoice extends BaseEntity {
   @Column({ type: 'json', nullable: true })
   providerPayload: JSON;
 
-  createDTO = (): InvoiceDTO => {
+  createDTO = (): any => {
     return {
       amount: this.amount,
       taxId: this.taxId,
@@ -53,10 +54,10 @@ export class Invoice extends BaseEntity {
     };
   };
 
-  setProvider = (providerPayload, awsPayload) => {
+  setProvider = (providerPayload) => {
     const item = providerPayload[0];
     this.providerId = item.id;
     this.status = item.status;
-    this.providerPayload = awsPayload;
+    this.providerPayload = providerPayload;
   };
 }

@@ -19,7 +19,7 @@ export class KafkaService extends Kafka {
   async sendPayload(payload) {
     // try {
     const response = await this.producerInstante.send({
-      topic: 'no5nmjx4-notification-created',
+      topic: 'rhfewsjl-default',
       messages: [{ value: JSON.stringify(payload) }],
     });
 

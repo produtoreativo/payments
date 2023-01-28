@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { ConnectionOptions } from "typeorm";
+import { DataSourceOptions } from "typeorm";
 dotenv.config({ path: process.env.DOTENV_PATH || undefined });
 
 const prodConfig = {
@@ -8,18 +8,20 @@ const prodConfig = {
   }
 };
 
-const databaseConfig: ConnectionOptions = {
+console.log("**********")
+console.log(prodConfig)
+const databaseConfig: DataSourceOptions = {
   type: "postgres",
   synchronize: false,
   logging: true,
-  ...prodConfig,
-  //...(process.env.NODE_ENV === 'production')? prodConfig: {},
+  // ...prodConfig,
+  ...(process.env.NODE_ENV === 'production')? prodConfig: {},
   entities: [`${__dirname}/**/*.entity{.ts,.js}`],
   migrations: [`${__dirname}/**/migration/*.ts`],
   url: process.env.DATABASE_URL,
-  cli: {
-    migrationsDir: 'src/migration'
-  }
+  // cli: {
+  //   migrationsDir: 'src/migration'
+  // }
 }
 
 module.exports = databaseConfig;

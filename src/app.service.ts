@@ -1,18 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice } from './domain/entities/invoice.entity';
+import { Invoice, InvoiceDTO } from './domain/entities/invoice.entity';
 import { InvoiceRepository } from './domain/repositories/invoice.repository';
-import { KafkaService } from './kafka/kafka.service';
 import { StarkbankService } from './starkbank/starkbank.service';
-//import { UploadService } from './upload/upload.service';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(Invoice)
     private invoiceRepository: InvoiceRepository,
-    //private kafkaService: KafkaService,
-    private starkbankService: StarkbankService, //private uploadService: UploadService,
+    private starkbankService: StarkbankService,
   ) {}
 
   getHello(): string {
@@ -23,42 +20,23 @@ export class AppService {
     return this.invoiceRepository.find();
   }
 
-  async createInvoice(payload) {
+  async createInvoice(payload): Promise<Invoice> {
     try {
       const invoice = new Invoice();
       this.invoiceRepository.merge(invoice, payload);
       await this.invoiceRepository.save(invoice);
       const dto = invoice.createDTO();
-      const providerPayload = await this.starkbankService.createInvoice(dto);
-      /*
-      const awsPayload = await this.uploadService.sendJSON(
-        invoice.id,
-        'starkbank',
-        providerPayload,
-      );
-      invoice.setProvider(providerPayload, awsPayload);
-      */
-      invoice.setProvider(providerPayload, providerPayload);
+      //.invoice.create([dto]);
+      const providerPayload = await this.starkbankService['invoice'].create([
+        dto,
+      ]);
+      invoice.setProvider(providerPayload);
       await this.invoiceRepository.save(invoice);
-
-      const message = {
-        providers: [
-          {
-            type: 'Mail',
-            to: 'fabriciolopesvital@gmail.com',
-          },
-        ],
-        templateParams: {
-          template: 'payment',
-          params: {
-            displayName: 'FABRICIO LOPES VITAL',
-          },
-        },
-      };
-      // await this.kafkaService.sendPayload(message);
       return invoice;
     } catch (error) {
       debugger;
+      console.log('******');
+      console.log(error);
       throw new Error(error);
     }
   }
