@@ -22,23 +22,11 @@ export class AppController {
   @ApiOperation({ summary: 'Generate invoice by Order' })
   @ApiResponse({ status: 201, description: 'Invoice type', type: InvoiceDTO })
   @Post('invoice')
-  async create(@Body() body: OrderDTO): Promise<any> {
+  async create(@Body() body: OrderDTO): Promise<Invoice> {
     const createdBy = 'Rest API';
     const payload = { createdBy, lastChangedBy: createdBy, ...body };
     console.log('Body', body);
-    try {
-      const invoice: Invoice = await this.appService.createInvoice(payload);
-      return invoice;
-    } catch (exception) {
-      // const scope = new Scope();
-      // scope.setTag('invoice', 'invoice');
-      // this.client.instance().captureException(exception, () => scope);
-      return {
-        name: exception.name,
-        taxId: '',
-        amount: 0,
-      };
-    }
+    return await this.appService.createInvoice(payload);
   }
 
   // @Post('assessment')

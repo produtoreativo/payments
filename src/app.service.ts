@@ -21,23 +21,20 @@ export class AppService {
   }
 
   async createInvoice(payload): Promise<Invoice> {
-    try {
+      // 1 teste
       const invoice = new Invoice();
       this.invoiceRepository.merge(invoice, payload);
+      // 2 teste
       await this.invoiceRepository.save(invoice);
+      // 3 teste
       const dto = invoice.createDTO();
       //.invoice.create([dto]);
+      // 4 teste
       const providerPayload = await this.starkbankService['invoice'].create([
         dto,
       ]);
+      // 5 teste
       invoice.setProvider(providerPayload);
-      await this.invoiceRepository.save(invoice);
-      return invoice;
-    } catch (error) {
-      debugger;
-      console.log('******');
-      console.log(error);
-      throw new Error(error);
-    }
+      return await this.invoiceRepository.save(invoice);
   }
 }
