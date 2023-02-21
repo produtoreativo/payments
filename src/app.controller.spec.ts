@@ -1,8 +1,11 @@
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { ObjectLiteral, Repository } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Invoice, OrderDTO } from './domain/entities/invoice.entity';
+import { Produto } from './domain/entities/produto.entity';
 import { InvoiceRepository } from './domain/repositories/invoice.repository';
 import { StarkbankModule } from './starkbank/starkbank.module';
 import { StarkbankService } from './starkbank/starkbank.service';
@@ -20,6 +23,19 @@ class AppServiceErrorMock extends AppService {
   });
 }
 
+class MockedRepository<
+  Entity extends ObjectLiteral,
+> extends Repository<Entity> {
+  save = jest.fn().mockImplementation((payload) => payload);
+}
+
+class MockedErrorRepository<
+  Entity extends ObjectLiteral,
+> extends Repository<Entity> {
+  save = jest.fn().mockReturnValue(() => {
+    throw new Error('Error to save product');
+  });
+}
 
 describe(`
   #AppController
@@ -41,6 +57,10 @@ describe(`
           },
           { provide: StarkbankService, useValue: {} },
           { provide: AppService, useClass: AppServiceMock },
+          {
+            provide: getRepositoryToken(Produto),
+            useClass: MockedRepository,
+          },
         ],
       }).compile();
   
@@ -73,7 +93,21 @@ describe(`
       });
 
     })
-
+    
+    describe('#createAssessment()', () => {
+      it(`
+        Dado uma entitade de Produto
+        Quando uma solicitação for demandada
+        Então deve-se retornar um produto
+      `, async () => {
+        const produto = new Produto();
+  
+        const result = await appController.createAssessment(produto);
+  
+        expect(result).toHaveProperty('createdBy', 'Rest API');
+        expect(result).toHaveProperty('lastChangedBy', 'Rest API');
+      })
+    })
   })
 
   describe('Failure Way', () => {
@@ -87,6 +121,10 @@ describe(`
           },
           { provide: StarkbankService, useValue: {} },
           { provide: AppService, useClass: AppServiceErrorMock },
+          {
+            provide: getRepositoryToken(Produto),
+            useClass: MockedErrorRepository,
+          },
         ],
       }).compile();
   
@@ -112,7 +150,20 @@ describe(`
 
     })
 
-  })
 
-  
+    describe('#createAssessment()', () => {
+
+      it(`
+        Dado uma entitade de Produto
+        Quando uma solicitação for demandada
+        Então deve-se enviar a exceção para o Sentry e retornar exceção
+      `, async () => {
+        const produto = new Produto();
+        const result = await appController.createAssessment(produto);
+
+        expect(result).toThrow('Error to save product');
+      })
+    })
+
+  })
 });
