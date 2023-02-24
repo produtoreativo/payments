@@ -1,8 +1,10 @@
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Invoice, OrderDTO } from './domain/entities/invoice.entity';
+import { Produto } from './domain/entities/produto.entity';
 import { InvoiceRepository } from './domain/repositories/invoice.repository';
 import { StarkbankModule } from './starkbank/starkbank.module';
 import { StarkbankService } from './starkbank/starkbank.service';
@@ -20,7 +22,6 @@ class AppServiceErrorMock extends AppService {
   });
 }
 
-
 describe(`
   #AppController
     Para um fornecer meio de pagamento durante uma compra
@@ -30,7 +31,6 @@ describe(`
   let appController: AppController;
 
   describe('Success Way', () => {
-
     beforeEach(async () => {
       const app: TestingModule = await Test.createTestingModule({
         controllers: [AppController],
@@ -41,22 +41,23 @@ describe(`
           },
           { provide: StarkbankService, useValue: {} },
           { provide: AppService, useClass: AppServiceMock },
+          {
+            provide: getRepositoryToken(Produto),
+            useValue: { save: jest.fn().mockReturnValue({ id: 1 }) },
+          },
         ],
       }).compile();
-  
+
       appController = app.get<AppController>(AppController);
     });
 
     describe('#getHello()', () => {
-
       it('should return "Hello World!"', () => {
         expect(appController.getHello()).toBe('Hello World!');
       });
-
-    })
+    });
 
     describe('#create()', () => {
-
       it(`
         Dado um DTO do contrato dessa API
         Quando uma solicitação for demandada
@@ -71,10 +72,23 @@ describe(`
         const result = await appController.create(dto);
         expect(result).toHaveProperty('id', 101);
       });
+    });
 
-    })
-
-  })
+    describe('#createAssessment()', () => {
+      it(`
+        Dado um produto dessa API
+        Quando uma solicitação for demandada
+        Então um Assessment é retornado
+      `, async () => {
+        const produto = {
+          name: 'product 1',
+          assessment: { foo: 'bar' },
+        } as any;
+        const result = await appController.createAssessment(produto);
+        expect(result).toHaveProperty('id', 1);
+      });
+    });
+  });
 
   describe('Failure Way', () => {
     beforeEach(async () => {
@@ -87,14 +101,21 @@ describe(`
           },
           { provide: StarkbankService, useValue: {} },
           { provide: AppService, useClass: AppServiceErrorMock },
+          {
+            provide: getRepositoryToken(Produto),
+            useValue: {
+              save: jest.fn().mockReturnValue(() => {
+                throw new Error('Missing product name');
+              }),
+            },
+          },
         ],
       }).compile();
-  
+
       appController = app.get<AppController>(AppController);
     });
 
     describe('#create()', () => {
-
       it(`
       Dado um DTO que não segue o contrato dessa API
       Quando uma solicitação for demandada
@@ -107,12 +128,23 @@ describe(`
           orderId: 1,
         } as OrderDTO;
         const result = await appController.create(dto);
-        expect(result).toThrow('Out of contract')
+        expect(result).toThrow('Out of contract');
       });
-
-    })
-
-  })
-
-  
+    });
+    describe('#createAssessment()', () => {
+      it(`
+      Dado um DTO que não segue o contrato dessa API
+      Quando uma solicitação for demandada
+      Então um erro é devolvido
+    `, async () => {
+        const produto = {
+          assessment: { foo: 'bar' },
+        } as any;
+        // const result = await appController.createAssessment(produto);
+        expect(await appController.createAssessment(produto)).toThrow(
+          'Missing product name',
+        );
+      });
+    });
+  });
 });
