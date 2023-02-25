@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice, InvoiceDTO } from './domain/entities/invoice.entity';
+import { Invoice, InvoiceDTO, ProviderEventDTO } from './domain/entities/invoice.entity';
 import { InvoiceRepository } from './domain/repositories/invoice.repository';
 import { StarkbankService } from './starkbank/starkbank.service';
 
@@ -18,6 +18,16 @@ export class AppService {
 
   async listAll() {
     return this.invoiceRepository.find();
+  }
+
+  async confirm(payload: ProviderEventDTO): Promise<Invoice> {
+    const invoice = await this.invoiceRepository.findOne({
+      'where': {
+        'providerId': payload.id
+      } 
+    })
+    invoice.status = 'paid';
+    return this.invoiceRepository.save(invoice);
   }
 
   async createInvoice(payload): Promise<Invoice> {

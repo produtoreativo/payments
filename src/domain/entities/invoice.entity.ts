@@ -23,6 +23,11 @@ export class OrderDTO {
   orderId: number;
 }
 
+export class ProviderEventDTO {
+  id: string;
+  status: string;
+}
+
 @Entity({ name: 'invoices' })
 export class Invoice extends BaseEntity {
   constructor() {

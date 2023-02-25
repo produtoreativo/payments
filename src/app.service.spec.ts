@@ -10,6 +10,11 @@ class InvoiceRepositoryMock extends InvoiceRepository {
     save = jest.fn(invoice => invoice)
 }
 
+class InvoiceRepository2Mock extends InvoiceRepository {
+  findOne =  jest.fn(async () => new Invoice())
+  save = jest.fn(invoice => invoice)
+}
+
 const providerPayload = [{
     id: 101,
     status: 'ok',
@@ -74,6 +79,59 @@ describe(`
               const result = await appService.createInvoice(dto);
               expect(result).toHaveProperty('providerId', 101);
         })
+
+    })
+
+    describe(`
+    Para confirmar um pagamento do Invoice feito por um cliente
+    Como um Bank as a Service, 
+    Eu quero acionar um Webhook que chama a API interna do Payments
+    `, () => {
+
+      describe('#confirm()', () => {
+        let appService;
+
+        beforeEach(async () => {
+            const app: TestingModule = await Test.createTestingModule({
+                providers: [
+                  {
+                    provide: 'InvoiceRepository',
+                    useClass: InvoiceRepository2Mock,
+                  },
+                  {
+                    provide: STARKBANK_MODULE_CONFIG,
+                    useValue: {
+                      environment: 'sandbox',
+                      id: 'ID',
+                      privateKey:
+                        '-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIK3RHaLm3Sduc3HKIxu2f7Irqo/VLt/9HUNbctDYLI8qoAcGBSuBBAAK\noUQDQgAEXCawtvpDfDfMyZZjGaQBsu6DNUmUt/zxKGZ315ZWJyoDnWmJUl/QL2/+\n2q6Mr/lPTP+sI13cFOE50el4TUp/Fw==\n-----END EC PRIVATE KEY-----'.replace(
+                          /\\n/g,
+                          '\n',
+                        ),
+                    },
+                  },
+                  { provide: StarkbankService, useClass: StarkbankServiceMock },
+                  AppService,
+                ],
+              }).compile();
+          
+              appService = app.get<AppService>(AppService);
+        })
+
+        it(`
+        Dado um payload que respeita o contrato da API
+        Quando o webhook for acionado
+        Então o Repository atualiza o Invoice em banco e devolve na chamada
+        `, async () => {
+
+          const dto = {};
+          const result = await appService.confirm(dto);
+          expect(result).toHaveProperty('status', 'paid');
+
+        })
+
+
+      })
 
     })
 
