@@ -16,7 +16,9 @@ import { Produto } from './domain/entities/produto.entity';
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService, // @InjectSentry() private readonly client: SentryService, // @InjectRepository(Produto) // private produtoRepository: Repository<Produto>,
+    @InjectRepository(Produto)
+    private produtoRepository: Repository<Produto>,
+    private readonly appService: AppService, // @InjectSentry() private readonly client: SentryService,
   ) {}
 
   @ApiOperation({ summary: 'Generate invoice by Order' })
@@ -29,20 +31,20 @@ export class AppController {
     return await this.appService.createInvoice(payload);
   }
 
-  // @Post('assessment')
-  // async createAssessment(@Body() body: Produto) {
-  //   const createdBy = 'Rest API';
-  //   const payload = { createdBy, lastChangedBy: createdBy, ...body };
-  //   try {
-  //     const produto = await this.produtoRepository.save(payload);
-  //     return produto;
-  //   } catch (exception) {
-  //     const scope = new Scope();
-  //     scope.setTag('produto', 'produto');
-  //     this.client.instance().captureException(exception, () => scope);
-  //     return exception;
-  //   }
-  // }
+  @Post('assessment')
+  async createAssessment(@Body() body: Produto) {
+    const createdBy = 'Rest API';
+    const payload = { createdBy, lastChangedBy: createdBy, ...body };
+    try {
+      const produto = await this.produtoRepository.save(payload);
+      return produto;
+    } catch (exception) {
+      // const scope = new Scope();
+      // scope.setTag('produto', 'produto');
+      // this.client.instance().captureException(exception, () => scope);
+      return exception;
+    }
+  }
 
   // @Get('search')
   // search() {
