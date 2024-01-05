@@ -45,7 +45,7 @@
     "nestjs-s3": "^1.0.1",
     "npm": "^7.21.0",
     "pg": "^8.6.0",
-    "starkbank": "^2.6.0",
+    "starkbank": "^2.21.0",
     "swagger-ui-express": "^4.2.0",
     "typeorm": "^0.3.18"
   },
