@@ -1,21 +1,32 @@
-version: "3.3"
-
+version: '3'
 services:
-  db:
-    image: "postgres:13"
-    restart: 'always'
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
     environment:
-      POSTGRES_PASSWORD: "password"
-      POSTGRES_USER: "payments"
-      POSTGRES_DB: "payments"
-  redis:
-    network_mode: host
-    container_name: redis-payments
-    image: redis
-    command: redis-server
-    ports:
-      - "6379:6379"
+      NODE_ENV: local
 
-  
+# version: "3.3"
+
+# services:
+#   db:
+#     image: "postgres:13"
+#     restart: 'always'
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_PASSWORD: "password"
+#       POSTGRES_USER: "payments"
+#       POSTGRES_DB: "payments"
+#   redis:
+#     network_mode: host
+#     container_name: redis-payments
+#     image: redis
+#     command: redis-server
+#     ports:
+#       - "6379:6379"
