@@ -71,7 +71,7 @@
     "@typescript-eslint/parser": "^4.19.0",
     "commitizen": "^4.2.4",
     "commitlint-config-jira": "^1.5.1",
-    "commitlint-plugin-jira-rules": "^1.5.1",
+    "commitlint-plugin-jira-rules": "^1.6.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
