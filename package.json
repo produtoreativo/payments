@@ -37,7 +37,7 @@
     "@nestjs/platform-express": "^8.1.1",
     "@nestjs/swagger": "^5.1.0",
     "@nestjs/typeorm": "^8.0.2",
-    "@ntegral/nestjs-sentry": "^3.0.6",
+    "@ntegral/nestjs-sentry": "^4.0.1",
     "@sentry/types": "^6.13.3",
     "dotenv": "^10.0.0",
     "install": "^0.13.0",
