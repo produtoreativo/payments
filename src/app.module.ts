@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { LogLevel } from '@sentry/types';
+import { ItauModule } from './providers/itau/itau.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { LogLevel } from '@sentry/types';
       environment: 'development',
       tracesSampleRate: 1.0,
     }),
+    ItauModule,
     
   ],
 })
