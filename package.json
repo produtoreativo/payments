@@ -34,8 +34,8 @@
   },
   "dependencies": {
     "@nestjs/config": "^1.0.2",
-    "@nestjs/platform-express": "^8.1.1",
-    "@nestjs/swagger": "^5.1.0",
+    "@nestjs/platform-express": "^10.4.2",
+    "@nestjs/swagger": "^7.4.1",
     "@nestjs/typeorm": "^8.0.2",
     "@ntegral/nestjs-sentry": "^3.0.6",
     "@sentry/types": "^6.13.3",
