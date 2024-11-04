@@ -4,6 +4,8 @@
 
 .vscode/
 
+package-lock.json
+
 .env
 private-key.pem
 public-key.pem
