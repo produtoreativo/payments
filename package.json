@@ -46,8 +46,8 @@
     "npm": "^7.21.0",
     "pg": "^8.6.0",
     "starkbank": "^2.6.0",
-    "typeorm": "^0.3.14",
-    "swagger-ui-express": "^4.2.0"
+    "swagger-ui-express": "^4.2.0",
+    "typeorm": "^0.3.18"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
