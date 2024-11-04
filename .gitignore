@@ -4,6 +4,9 @@
 
 .vscode/
 
+#Snyk cache
+.dccache
+
 package-lock.json
 
 .env
