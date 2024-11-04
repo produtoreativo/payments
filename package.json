@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@nestjs/config": "^1.0.2",
-    "@nestjs/platform-express": "^8.1.1",
+    "@nestjs/platform-express": "^8.4.0",
     "@nestjs/swagger": "^5.1.0",
     "@nestjs/typeorm": "^8.0.2",
     "@ntegral/nestjs-sentry": "^3.0.6",
@@ -45,9 +45,9 @@
     "nestjs-s3": "^1.0.1",
     "npm": "^7.21.0",
     "pg": "^8.6.0",
-    "starkbank": "^2.21.0",
-    "swagger-ui-express": "^4.1.6",
-    "typeorm": "^0.2.34"
+    "starkbank": "^2.6.0",
+    "typeorm": "^0.3.14",
+    "swagger-ui-express": "^4.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
