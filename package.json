@@ -49,7 +49,7 @@
     "pg": "8.13.1",
     "starkbank": "2.29.1",
     "swagger-ui-express": "5.0.1",
-    "typeorm": "0.3.20"
+    "typeorm": "0.3.26"
   },
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
