@@ -45,7 +45,7 @@
     "install": "0.13.0",
     "kafkajs": "2.2.4",
     "nestjs-s3": "2.0.1",
-    "npm": "10.9.0",
+    "npm": "11.6.1",
     "pg": "8.13.1",
     "starkbank": "2.29.1",
     "swagger-ui-express": "5.0.1",
