@@ -37,7 +37,7 @@
   "dependencies": {
     "@nestjs/config": "3.3.0",
     "@nestjs/platform-express": "10.4.6",
-    "@nestjs/swagger": "8.0.1",
+    "@nestjs/swagger": "11.2.6",
     "@nestjs/typeorm": "10.0.2",
     "@ntegral/nestjs-sentry": "4.0.1",
     "@sentry/types": "8.36.0",
